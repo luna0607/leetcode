@@ -4,38 +4,63 @@ import java.util.Arrays;
  * Created by Ariana on 2018/1/10.
  */
 public class chapter2 {
+    public static class ListNode {
+      int val;
+      ListNode next;
+      ListNode(int val) {
+          this.val = val;
+          this.next = null;
+      }
+  }
+
 
     public static void main(String[] args) {
         chapter2 chapter2 = new chapter2();
+//
+//        /** 斐波那契数
+//         * 给定 1，返回 0
+//         * 给定 2，返回 1
+//         * 给定 10，返回 34
+//         */
+//        for (int i = 1; i < 10; i++) {
+//            System.out.println(chapter2.getFibonacci(i));
+//        }
+//
+//        /** 单例
+//         * A a = A.getInstance();
+//         * A b = A.getInstance();
+//         *  a应该等于b
+//         */
+//        chapter2 a=chapter2.getInstance();
+//        chapter2 b=chapter2.getInstance();
+//        System.out.println(a==b);
+//
+//        /**
+//         * 空格替换
+//         */
+//        char[] tmp="hello world".toCharArray();
+//        System.out.println(chapter2.replaceBlank(tmp,11));
+//
+//        /**
+//         * 二进制中有多少个1
+//         */
+//        chapter2.countOnes(32);
 
-        /** 斐波那契数
-         * 给定 1，返回 0
-         * 给定 2，返回 1
-         * 给定 10，返回 34
+
+        /**
+         * 给出一个链表1->2->3->null，这个翻转后的链表为3->2->1->null
          */
-        for (int i = 1; i < 10; i++) {
-            System.out.println(chapter2.getFibonacci(i));
+        ListNode head=new ListNode(1);
+        head.next=new ListNode(2);
+        head.next.next=new ListNode(3);
+        head.next.next.next=new ListNode(4);
+
+       ListNode list2=chapter2.reverse(null);
+           System.out.println("list2");
+            while (list2!=null){
+            System.out.println(list2.val);
+            list2=list2.next;
         }
-
-        /** 单例
-         * A a = A.getInstance();
-         * A b = A.getInstance();
-         *  a应该等于b
-         */
-        chapter2 a=chapter2.getInstance();
-        chapter2 b=chapter2.getInstance();
-        System.out.println(a==b);
-
-        /**
-         * 空格替换
-         */
-        char[] tmp="hello world".toCharArray();
-        System.out.println(chapter2.replaceBlank(tmp,11));
-
-        /**
-         * 二进制中有多少个1
-         */
-        chapter2.countOnes(32);
     }
 
     /**
@@ -121,5 +146,30 @@ public class chapter2 {
              }
          }
          return count;
+    }
+
+
+    /**
+     * 给出一个链表1->2->3->null，这个翻转后的链表为3->2->1->null
+     * 一开始没考虑到head是null,总是报错
+     * @param head 头节点
+     * @return 新的头节点
+     */
+       public ListNode reverse(ListNode head) {
+         if(head==null){
+             return null;
+         }
+           ListNode list1=head;//原版list
+           list1.next=head.next;
+           ListNode list2=new ListNode(head.val);
+           ListNode tmp;
+           while (list1.next!=null){
+               tmp=new ListNode(list1.next.val);
+               tmp.next=list2;
+               list2=tmp;
+               list1=list1.next;
+           }
+
+           return list2;
     }
 }
