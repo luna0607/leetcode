@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Created by Ariana on 2018/1/10.
  */
@@ -23,6 +25,12 @@ public class chapter2 {
         chapter2 a=chapter2.getInstance();
         chapter2 b=chapter2.getInstance();
         System.out.println(a==b);
+
+        /**
+         *
+         */
+        char[] tmp="hello world".toCharArray();
+        System.out.println(chapter2.replaceBlank(tmp,11));
     }
 
     /**
@@ -58,5 +66,39 @@ public class chapter2 {
     public static chapter2 getInstance() {
         // write your code here
         return chapter2;
+    }
+
+    /**
+     * 设计一种方法，将一个字符串中的所有空格替换成 %20 。
+     * 你可以假设该字符串有足够的空间来加入新的字符，且你得到的是“真实的”字符长度。
+     * 你的程序还需要返回被替换后的字符串的长度。
+     * @param string 已知字符串，例如“Mr John Smith“
+     * @param length 已知长度，例如13
+     * @return 替换后的字符串（"Mr%20John%20Smith"）的长度
+     */
+      public int replaceBlank(char[] string, int length) {
+          char[] string2=string;
+          int count=0;
+          for(char tmp:string2){
+              if(' ' == tmp){
+                  count++;
+              }
+          }
+          string= Arrays.copyOf(string,string.length+count*2);
+          int j=0;
+           for(int i=0;i<string2.length;i++){
+               if(string2[i]==' '){
+                    string[j]='%';
+                    j++;
+                    string[j]='2';
+                    j++;
+                    string[j]='0';
+               }else {
+                   string[j]=string2[i];
+               }
+               j++;
+          }
+          System.out.println(string);
+          return string.length;
     }
 }
