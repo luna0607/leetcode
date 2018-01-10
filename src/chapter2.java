@@ -69,10 +69,19 @@ public class chapter2 {
 //            System.out.println(list2.val);
 //            list2=list2.next;
 //        }
-        int[] pre = {1, 2, 4, 5, 3, 6,7};
-        int[] in = {4,2,5,1,6,3,7};
-        TreeNode root = chapter2.buildTree(pre, in);
-        System.out.print(root.val);
+//        /**
+//         * 用前序遍历和中序遍历获得二叉树
+//         */
+//        int[] pre = {1, 2, 4, 5, 3, 6,7};
+//        int[] in = {4,2,5,1,6,3,7};
+//        TreeNode root = chapter2.buildTree(pre, in);
+//        System.out.print(root.val);
+        int[][] matrix={
+                {1, 3, 5, 7},
+                {2, 4, 7, 8},
+                {3, 5, 9, 10}
+        };
+        System.out.print(chapter2.searchMatrix(matrix,3));
     }
 
     /**
@@ -259,6 +268,44 @@ public class chapter2 {
         for (int tmp : array) {
             System.out.print(tmp + " ");
         }
+    }
+
+    /**
+     * 写出一个高效的算法来搜索m×n矩阵中的值，返回这个值出现的次数。
+     * 这个矩阵具有以下特性：
+     * 每行中的整数从左到右是排序的。
+     * 每一列的整数从上到下是排序的。
+     * 在每一行或每一列中没有重复的整数。
+     *
+     * tip:
+     * matrix.length是宽
+     * matrix[0].length是高
+     *
+     * @param matrix 例如，[
+     *               [1, 3, 5, 7],
+     *               [2, 4, 7, 8],
+     *               [3, 5, 9, 10]
+     *               ]
+     * @param target 例如 3
+     * @return 则 2
+     */
+    public int searchMatrix(int[][] matrix, int target) {
+        int width=matrix.length;
+        if(width==0){
+            return 0;
+        }
+        int height=matrix[0].length;
+        int count=0;
+        for(int i=0;i<width;i++){
+            for(int j=0;j<height;j++){
+                if(matrix[i][j]>target) {
+                    break;
+                }else if(matrix[i][j]==target){
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
 
