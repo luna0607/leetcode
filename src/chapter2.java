@@ -260,4 +260,6 @@ public class chapter2 {
             System.out.print(tmp + " ");
         }
     }
+
+
 }
