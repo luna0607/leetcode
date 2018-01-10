@@ -69,6 +69,10 @@ public class chapter2 {
 //            System.out.println(list2.val);
 //            list2=list2.next;
 //        }
+        int[] pre = {1, 2, 4, 5, 3, 6,7};
+        int[] in = {4,2,5,1,6,3,7};
+        TreeNode root = chapter2.buildTree(pre, in);
+        System.out.print(root.val);
     }
 
     /**
@@ -197,13 +201,63 @@ public class chapter2 {
     }
 
     /**
-     * 根据前序遍历和中序遍历构造二叉树
+     * 根据前序遍历和中序遍历构造二叉树，递归拆分。每个子树视作一棵新树。
      * @param preorder 前序遍历
      * @param inorder 中序遍历
      * @return 二叉树根节点
      */
       public TreeNode buildTree(int[] preorder, int[] inorder) {
-        // write your code here
-          return null;
+          if (preorder.length == 0) {
+              return null;
+          } else {
+              int rootNum = preorder[0];
+              TreeNode root = new TreeNode(rootNum);
+              if (preorder.length == 1) {
+                  return root;
+              } else {
+                  int index = indexOf(inorder, rootNum);
+                  int[] inOrderLeft = new int[index];
+                  for (int i = 0; i < index; i++) {
+                      inOrderLeft[i] = inorder[i];
+                  }
+                  int[] inOrderRight = new int[inorder.length - index - 1];
+                  for (int i = 0; i < inOrderRight.length; i++) {
+                      inOrderRight[i] = inorder[index + i + 1];
+                  }
+                  int[] preOrderLeft = new int[inOrderLeft.length];
+                  for (int i = 1; i < inOrderLeft.length + 1; i++) {
+                      preOrderLeft[i - 1] = preorder[i];
+                  }
+                  int[] preOrderRight = new int[inOrderRight.length];
+                  for (int i = 0; i < inOrderRight.length; i++) {
+                      preOrderRight[i] = preorder[index + 1 + i];
+                  }
+                  root.left = buildTree(preOrderLeft, inOrderLeft);
+                  root.right = buildTree(preOrderRight, inOrderRight);
+                  return root;
+//              printIntArray(inOrderLeft);
+//              System.out.print("||");
+//              printIntArray(inOrderRight);
+//              System.out.println();
+//              printIntArray(preOrderLeft);
+//              System.out.print("||");
+//              printIntArray(preOrderRight);
+              }
+          }
+    }
+
+    private int indexOf(int[] inorder, int rootNum) {
+        for (int i = 0; i < inorder.length; i++) {
+            if (inorder[i] == rootNum) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private void printIntArray(int[] array) {
+        for (int tmp : array) {
+            System.out.print(tmp + " ");
+        }
     }
 }
