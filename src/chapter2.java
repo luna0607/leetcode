@@ -12,6 +12,14 @@ public class chapter2 {
           this.next = null;
       }
   }
+    public class TreeNode {
+     public int val;
+      public TreeNode left, right;
+      public TreeNode(int val) {
+          this.val = val;
+          this.left = this.right = null;
+      }
+  }
 
 
     public static void main(String[] args) {
@@ -47,20 +55,20 @@ public class chapter2 {
 //        chapter2.countOnes(32);
 
 
-        /**
-         * 给出一个链表1->2->3->null，这个翻转后的链表为3->2->1->null
-         */
-        ListNode head=new ListNode(1);
-        head.next=new ListNode(2);
-        head.next.next=new ListNode(3);
-        head.next.next.next=new ListNode(4);
-
-       ListNode list2=chapter2.reverse(null);
-           System.out.println("list2");
-            while (list2!=null){
-            System.out.println(list2.val);
-            list2=list2.next;
-        }
+//        /**
+//         * 给出一个链表1->2->3->null，这个翻转后的链表为3->2->1->null
+//         */
+//        ListNode head=new ListNode(1);
+//        head.next=new ListNode(2);
+//        head.next.next=new ListNode(3);
+//        head.next.next.next=new ListNode(4);
+//
+//       ListNode list2=chapter2.reverse(null);
+//           System.out.println("list2");
+//            while (list2!=null){
+//            System.out.println(list2.val);
+//            list2=list2.next;
+//        }
     }
 
     /**
@@ -186,5 +194,16 @@ public class chapter2 {
             }
         }
         return (int)min;
+    }
+
+    /**
+     * 根据前序遍历和中序遍历构造二叉树
+     * @param preorder 前序遍历
+     * @param inorder 中序遍历
+     * @return 二叉树根节点
+     */
+      public TreeNode buildTree(int[] preorder, int[] inorder) {
+        // write your code here
+          return null;
     }
 }
