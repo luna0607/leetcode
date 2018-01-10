@@ -172,4 +172,19 @@ public class chapter2 {
 
            return list2;
     }
+
+    /**
+     * 找到数组里最小的值
+     * @param nums 数组，例如【1，2，3，4，5】
+     * @return 最小的值，例如 1
+     */
+     public int findMin(int[] nums) {
+        double min=Double.POSITIVE_INFINITY;
+        for(int i:nums){
+            if(i<min){
+                min=i;
+            }
+        }
+        return (int)min;
+    }
 }
