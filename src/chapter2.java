@@ -27,10 +27,15 @@ public class chapter2 {
         System.out.println(a==b);
 
         /**
-         *
+         * 空格替换
          */
         char[] tmp="hello world".toCharArray();
         System.out.println(chapter2.replaceBlank(tmp,11));
+
+        /**
+         * 二进制中有多少个1
+         */
+        chapter2.countOnes(32);
     }
 
     /**
@@ -100,5 +105,21 @@ public class chapter2 {
           }
           System.out.println(string);
           return string.length;
+    }
+
+    /**
+     * 计算在一个 32 位的整数的二进制表示中有多少个 1.
+     * @param num 例如给定 32 (100000）
+     * @return 返回1
+     */
+     public int countOnes(int num) {
+         String binString=Integer.toBinaryString(num);
+         int count=0;
+         for(char tmp:binString.toCharArray()){
+             if(tmp=='1'){
+                 count++;
+             }
+         }
+         return count;
     }
 }
