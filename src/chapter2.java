@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -5,21 +6,26 @@ import java.util.Arrays;
  */
 public class chapter2 {
     public static class ListNode {
-      int val;
-      ListNode next;
-      ListNode(int val) {
-          this.val = val;
-          this.next = null;
-      }
-  }
-    public class TreeNode {
-     public int val;
-      public TreeNode left, right;
-      public TreeNode(int val) {
-          this.val = val;
-          this.left = this.right = null;
-      }
-  }
+        int val;
+        ListNode next;
+
+        ListNode(int val) {
+            this.val = val;
+            this.next = null;
+        }
+    }
+
+    public static class TreeNode {
+        public int val;
+        public TreeNode left, right;
+
+        public TreeNode(int val) {
+            this.val = val;
+            this.left = this.right = null;
+        }
+    }
+
+    static ArrayList<Integer> tmpOrder = new ArrayList<>();
 
 
     public static void main(String[] args) {
@@ -86,11 +92,20 @@ public class chapter2 {
 //        };
 //        System.out.print(chapter2.searchMatrix(matrix,3));
 
+//        /**
+//         * 分割一个整数数组，使得奇数在前偶数在后。
+//         */
+//        int[] array={2147483644,2147483645,2147483646,2147483647};
+//        chapter2.partitionArray(array);
+
         /**
-         * 分割一个整数数组，使得奇数在前偶数在后。
+         * 测试前序遍历和中序遍历
          */
-        int[] array={2147483644,2147483645,2147483646,2147483647};
-        chapter2.partitionArray(array);
+        TreeNode treeNode = new TreeNode(1);
+        treeNode.left = new TreeNode(2);
+        treeNode.right = new TreeNode(3);
+        chapter2.midOrder(treeNode);
+        System.out.println(chapter2.isSubtree(treeNode, null));
     }
 
     /**
@@ -136,30 +151,30 @@ public class chapter2 {
      * @param length 已知长度，例如13
      * @return 替换后的字符串（"Mr%20John%20Smith"）的长度
      */
-      public int replaceBlank(char[] string, int length) {
-          char[] string2=string;
-          int count=0;
-          for(char tmp:string2){
-              if(' ' == tmp){
-                  count++;
-              }
-          }
-          string= Arrays.copyOf(string,string.length+count*2);
-          int j=0;
-           for(int i=0;i<string2.length;i++){
-               if(string2[i]==' '){
-                    string[j]='%';
-                    j++;
-                    string[j]='2';
-                    j++;
-                    string[j]='0';
-               }else {
-                   string[j]=string2[i];
-               }
-               j++;
-          }
-          System.out.println(string);
-          return string.length;
+    public int replaceBlank(char[] string, int length) {
+        char[] string2=string;
+        int count=0;
+        for(char tmp:string2){
+            if(' ' == tmp){
+                count++;
+            }
+        }
+        string= Arrays.copyOf(string,string.length+count*2);
+        int j=0;
+        for(int i=0; i<string2.length; i++){
+            if(string2[i]==' '){
+                string[j]='%';
+                j++;
+                string[j]='2';
+                j++;
+                string[j]='0';
+            }else {
+                string[j]=string2[i];
+            }
+            j++;
+        }
+        System.out.println(string);
+        return string.length;
     }
 
     /**
@@ -167,15 +182,15 @@ public class chapter2 {
      * @param num 例如给定 32 (100000）
      * @return 返回1
      */
-     public int countOnes(int num) {
-         String binString=Integer.toBinaryString(num);
-         int count=0;
-         for(char tmp:binString.toCharArray()){
-             if(tmp=='1'){
-                 count++;
-             }
-         }
-         return count;
+    public int countOnes(int num) {
+        String binString=Integer.toBinaryString(num);
+        int count=0;
+        for(char tmp:binString.toCharArray()){
+            if(tmp=='1'){
+                count++;
+            }
+        }
+        return count;
     }
 
 
@@ -185,22 +200,22 @@ public class chapter2 {
      * @param head 头节点
      * @return 新的头节点
      */
-       public ListNode reverse(ListNode head) {
-         if(head==null){
-             return null;
-         }
-           ListNode list1=head;//原版list
-           list1.next=head.next;
-           ListNode list2=new ListNode(head.val);
-           ListNode tmp;
-           while (list1.next!=null){
-               tmp=new ListNode(list1.next.val);
-               tmp.next=list2;
-               list2=tmp;
-               list1=list1.next;
-           }
+    public ListNode reverse(ListNode head) {
+        if(head==null){
+            return null;
+        }
+        ListNode list1=head;//原版list
+        list1.next=head.next;
+        ListNode list2=new ListNode(head.val);
+        ListNode tmp;
+        while (list1.next!=null){
+            tmp=new ListNode(list1.next.val);
+            tmp.next=list2;
+            list2=tmp;
+            list1=list1.next;
+        }
 
-           return list2;
+        return list2;
     }
 
     /**
@@ -208,7 +223,7 @@ public class chapter2 {
      * @param nums 数组，例如【1，2，3，4，5】
      * @return 最小的值，例如 1
      */
-     public int findMin(int[] nums) {
+    public int findMin(int[] nums) {
         double min=Double.POSITIVE_INFINITY;
         for(int i:nums){
             if(i<min){
@@ -224,35 +239,35 @@ public class chapter2 {
      * @param inorder 中序遍历
      * @return 二叉树根节点
      */
-      public TreeNode buildTree(int[] preorder, int[] inorder) {
-          if (preorder.length == 0) {
-              return null;
-          } else {
-              int rootNum = preorder[0];
-              TreeNode root = new TreeNode(rootNum);
-              if (preorder.length == 1) {
-                  return root;
-              } else {
-                  int index = indexOf(inorder, rootNum);
-                  int[] inOrderLeft = new int[index];
-                  for (int i = 0; i < index; i++) {
-                      inOrderLeft[i] = inorder[i];
-                  }
-                  int[] inOrderRight = new int[inorder.length - index - 1];
-                  for (int i = 0; i < inOrderRight.length; i++) {
-                      inOrderRight[i] = inorder[index + i + 1];
-                  }
-                  int[] preOrderLeft = new int[inOrderLeft.length];
-                  for (int i = 1; i < inOrderLeft.length + 1; i++) {
-                      preOrderLeft[i - 1] = preorder[i];
-                  }
-                  int[] preOrderRight = new int[inOrderRight.length];
-                  for (int i = 0; i < inOrderRight.length; i++) {
-                      preOrderRight[i] = preorder[index + 1 + i];
-                  }
-                  root.left = buildTree(preOrderLeft, inOrderLeft);
-                  root.right = buildTree(preOrderRight, inOrderRight);
-                  return root;
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        if (preorder.length == 0) {
+            return null;
+        } else {
+            int rootNum = preorder[0];
+            TreeNode root = new TreeNode(rootNum);
+            if (preorder.length == 1) {
+                return root;
+            } else {
+                int index = indexOf(inorder, rootNum);
+                int[] inOrderLeft = new int[index];
+                for (int i = 0; i < index; i++) {
+                    inOrderLeft[i] = inorder[i];
+                }
+                int[] inOrderRight = new int[inorder.length - index - 1];
+                for (int i = 0; i < inOrderRight.length; i++) {
+                    inOrderRight[i] = inorder[index + i + 1];
+                }
+                int[] preOrderLeft = new int[inOrderLeft.length];
+                for (int i = 1; i < inOrderLeft.length + 1; i++) {
+                    preOrderLeft[i - 1] = preorder[i];
+                }
+                int[] preOrderRight = new int[inOrderRight.length];
+                for (int i = 0; i < inOrderRight.length; i++) {
+                    preOrderRight[i] = preorder[index + 1 + i];
+                }
+                root.left = buildTree(preOrderLeft, inOrderLeft);
+                root.right = buildTree(preOrderRight, inOrderRight);
+                return root;
 //              printIntArray(inOrderLeft);
 //              System.out.print("||");
 //              printIntArray(inOrderRight);
@@ -260,8 +275,8 @@ public class chapter2 {
 //              printIntArray(preOrderLeft);
 //              System.out.print("||");
 //              printIntArray(preOrderRight);
-              }
-          }
+            }
+        }
     }
 
     private int indexOf(int[] inorder, int rootNum) {
@@ -305,8 +320,8 @@ public class chapter2 {
         }
         int height=matrix[0].length;
         int count=0;
-        for(int i=0;i<width;i++){
-            for(int j=0;j<height;j++){
+        for(int i=0; i<width; i++){
+            for(int j=0; j<height; j++){
                 if(matrix[i][j]>target) {
                     break;
                 }else if(matrix[i][j]==target){
@@ -322,23 +337,23 @@ public class chapter2 {
      * 给定 [1, 2, 3, 4]，返回 [1, 3, 2, 4]。
      * @param nums 例如，[1, 2, 3, 4]
      */
-   public void partitionArray(int[] nums) {
-       int j=nums.length-1;
-       for(int i=0;i<j;i++){
-           if(nums[i]%2==0){
-               while (nums[j]%2==0){
-                   j--;
-               }
-               if(i<j){
-                   int tmp=nums[j];
-                   nums[j]=nums[i];
-                   nums[i]=tmp;
-               }
-           }
-       }
-       for(int n:nums){
-           System.out.println(n);
-       }
+    public void partitionArray(int[] nums) {
+        int j=nums.length-1;
+        for(int i=0; i<j; i++){
+            if(nums[i]%2==0){
+                while (nums[j]%2==0){
+                    j--;
+                }
+                if(i<j){
+                    int tmp=nums[j];
+                    nums[j]=nums[i];
+                    nums[i]=tmp;
+                }
+            }
+        }
+        for(int n:nums){
+            System.out.println(n);
+        }
     }
 
     /**
@@ -346,10 +361,92 @@ public class chapter2 {
      * 请在在O(1)时间复杂度删除该链表节点。
      * @param node Linked list is 1->2->3->4, and given node 3, delete the node in place 1->2->4
      */
-       public void deleteNode(ListNode node) {
-           node.val=node.next.val;
-           node.next=node.next.next;
-       }
+    public void deleteNode(ListNode node) {
+        node.val=node.next.val;
+        node.next=node.next.next;
+    }
+
+    /**
+     * 有两个不同大小的二叉树：
+     * T1 有上百万的节点； T2 有好几百的节点。
+     * 请设计一种算法，判定 T2 是否为 T1的子树。
+     *
+     * @param T1 大树
+     * @param T2 小树
+     * @return 是/否
+     */
+    public boolean isSubtree(TreeNode T1, TreeNode T2) {
+        String preOrderT1String = "";
+        String midOrderT1String = "";
+        String preOrderT2String = "";
+        String midOrderT2String = "";
 
 
+        tmpOrder = new ArrayList<>();
+        preOrder(T1);
+        if (tmpOrder.size() != 0) {
+            ArrayList<Integer> preOderT1 = tmpOrder;
+            preOrderT1String = preOderT1.toString();
+            preOrderT1String = preOrderT1String.substring(1, preOrderT1String.length() - 1);
+        }
+
+        tmpOrder = new ArrayList<>();
+        midOrder(T1);
+        if (tmpOrder.size() != 0) {
+            ArrayList<Integer> minOrderT1 = tmpOrder;
+            midOrderT1String = minOrderT1.toString();
+            midOrderT1String = midOrderT1String.substring(1, midOrderT1String.length() - 1);
+        }
+
+
+        tmpOrder = new ArrayList<>();
+        preOrder(T2);
+        if (tmpOrder.size() != 0) {
+            ArrayList<Integer> preOrderT2 = tmpOrder;
+            preOrderT2String = preOrderT2.toString();
+            preOrderT2String = preOrderT2String.substring(1, preOrderT2String.length() - 1);
+        }
+
+        tmpOrder = new ArrayList<>();
+        midOrder(T2);
+        if (tmpOrder.size() != 0) {
+            ArrayList<Integer> midOrderT2 = tmpOrder;
+            midOrderT2String = midOrderT2.toString();
+            midOrderT2String = midOrderT2String.substring(1, midOrderT2String.length() - 1);
+        }
+
+        return preOrderT1String.contains(preOrderT2String) && midOrderT1String.contains(midOrderT2String);
+    }
+
+    public void preOrder(TreeNode treeNode) {
+        if (treeNode != null) {
+            tmpOrder.add(treeNode.val);
+            if (treeNode.left != null) {
+                preOrder(treeNode.left);
+            }else {
+                tmpOrder.add(-1);
+            }
+            if (treeNode.right != null) {
+                preOrder(treeNode.right);
+            }else {
+                tmpOrder.add(-1);
+            }
+        }
+    }
+
+    public void midOrder(TreeNode treeNode) {
+        if (treeNode != null) {
+            if (treeNode.left != null) {
+                midOrder(treeNode.left);
+            }else {
+                tmpOrder.add(-1);
+            }
+            tmpOrder.add(treeNode.val);
+            if (treeNode.right != null) {
+                midOrder(treeNode.right);
+            }else {
+                tmpOrder.add(-1);
+            }
+        }
+    }
 }
