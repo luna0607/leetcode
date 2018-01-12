@@ -76,12 +76,21 @@ public class chapter2 {
 //        int[] in = {4,2,5,1,6,3,7};
 //        TreeNode root = chapter2.buildTree(pre, in);
 //        System.out.print(root.val);
-        int[][] matrix={
-                {1, 3, 5, 7},
-                {2, 4, 7, 8},
-                {3, 5, 9, 10}
-        };
-        System.out.print(chapter2.searchMatrix(matrix,3));
+//        /**
+//         * 搜索矩阵
+//         */
+//        int[][] matrix={
+//                {1, 3, 5, 7},
+//                {2, 4, 7, 8},
+//                {3, 5, 9, 10}
+//        };
+//        System.out.print(chapter2.searchMatrix(matrix,3));
+
+        /**
+         * 分割一个整数数组，使得奇数在前偶数在后。
+         */
+        int[] array={2147483644,2147483645,2147483646,2147483647};
+        chapter2.partitionArray(array);
     }
 
     /**
@@ -306,6 +315,30 @@ public class chapter2 {
             }
         }
         return count;
+    }
+
+    /**
+     * 分割一个整数数组，使得奇数在前偶数在后。
+     * 给定 [1, 2, 3, 4]，返回 [1, 3, 2, 4]。
+     * @param nums 例如，[1, 2, 3, 4]
+     */
+   public void partitionArray(int[] nums) {
+       int j=nums.length-1;
+       for(int i=0;i<j;i++){
+           if(nums[i]%2==0){
+               while (nums[j]%2==0){
+                   j--;
+               }
+               if(i<j){
+                   int tmp=nums[j];
+                   nums[j]=nums[i];
+                   nums[i]=tmp;
+               }
+           }
+       }
+       for(int n:nums){
+           System.out.println(n);
+       }
     }
 
 
