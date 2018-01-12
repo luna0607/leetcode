@@ -98,14 +98,19 @@ public class chapter2 {
 //        int[] array={2147483644,2147483645,2147483646,2147483647};
 //        chapter2.partitionArray(array);
 
-        /**
-         * 测试前序遍历和中序遍历
-         */
-        TreeNode treeNode = new TreeNode(1);
-        treeNode.left = new TreeNode(2);
-        treeNode.right = new TreeNode(3);
-        chapter2.midOrder(treeNode);
-        System.out.println(chapter2.isSubtree(treeNode, null));
+//        /**
+//         * 测试子树
+//         */
+//        TreeNode treeNode = new TreeNode(1);
+//        treeNode.left = new TreeNode(2);
+//        treeNode.right = new TreeNode(3);
+//        chapter2.midOrder(treeNode);
+//        System.out.println(chapter2.isSubtree(treeNode, null));
+        ListNode root=new ListNode(1);
+        root.next=new ListNode(2);
+//        root.next.next=new ListNode(3);
+//        root.next.next.next=new ListNode(4);
+        chapter2.removeNthFromEnd(root,2);
     }
 
     /**
@@ -418,6 +423,10 @@ public class chapter2 {
         return preOrderT1String.contains(preOrderT2String) && midOrderT1String.contains(midOrderT2String);
     }
 
+    /**
+     * 前序遍历，返回值在tmpOrder里
+     * @param treeNode 根节点
+     */
     public void preOrder(TreeNode treeNode) {
         if (treeNode != null) {
             tmpOrder.add(treeNode.val);
@@ -434,6 +443,10 @@ public class chapter2 {
         }
     }
 
+    /**
+     * 中序遍历，返回值在tmpOrder里
+     * @param treeNode 根节点
+     */
     public void midOrder(TreeNode treeNode) {
         if (treeNode != null) {
             if (treeNode.left != null) {
@@ -448,5 +461,42 @@ public class chapter2 {
                 tmpOrder.add(-1);
             }
         }
+    }
+
+    /**
+     *给定一个链表，删除链表中倒数第n个节点，返回链表的头节点。
+     * @param head 头节点
+     * @param n 倒数第N个
+     * @return 头节点
+     */
+     public ListNode removeNthFromEnd(ListNode head, int n) {
+        // write your code here
+         ListNode tmpN=new ListNode(head.val);
+         tmpN.next=head.next;
+         ListNode HEAD=new ListNode(head.val);
+         HEAD.next=head.next;
+
+         int count=0;
+         while (head.next!=null){
+             if(count<n){
+                 count++;
+             }else {
+                 tmpN=tmpN.next;
+             }
+             head=head.next;
+         }
+         if(count==0){//整个链表就是一个空表
+             return null;
+         }else if(n-count==1){//删除的是头
+             tmpN=tmpN.next;
+             return tmpN;
+         } else {
+             if(tmpN.next.next!=null){
+                 tmpN.next=tmpN.next.next;
+             }else {//删除的是尾
+                 tmpN.next=null;
+             }
+             return HEAD;
+         }
     }
 }
