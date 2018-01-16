@@ -558,4 +558,29 @@ public class chapter2 {
             return HEAD;
         }
     }
+
+
+    /**
+     * 用递归打印数字
+     * @param n N位数
+     * @return 从1 到最大的N位数，例如N=2，则返回【1，2，3，4...，99】
+     */
+      public ArrayList<Integer> numbersByRecursion(int n) {
+          if(n==0){
+              return new ArrayList<Integer>();
+          }
+          if(n==1){
+              ArrayList<Integer> result=new ArrayList<>();
+              for(int i=1;i<10;i++){
+                  result.add(i);
+              }
+              return result;
+          }else {
+              ArrayList<Integer> result=numbersByRecursion(n-1);
+              for(int i=(int)Math.pow(10,n-1);i<Math.pow(10,n);i++){
+                  result.add(i);
+              }
+              return result;
+          }
+    }
 }
