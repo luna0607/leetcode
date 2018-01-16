@@ -106,11 +106,26 @@ public class chapter2 {
 //        treeNode.right = new TreeNode(3);
 //        chapter2.midOrder(treeNode);
 //        System.out.println(chapter2.isSubtree(treeNode, null));
-        ListNode root=new ListNode(1);
-        root.next=new ListNode(2);
-//        root.next.next=new ListNode(3);
-//        root.next.next.next=new ListNode(4);
-        chapter2.removeNthFromEnd(root,2);
+//        ListNode root=new ListNode(1);
+//        root.next=new ListNode(2);
+//        chapter2.removeNthFromEnd(root,2);
+
+        /**
+         * 测试合并链表
+         */
+        ListNode root = new ListNode(3);
+        root.next = new ListNode(3);
+        root.next.next = new ListNode(8);
+        ListNode root2 = new ListNode(1);
+        root2.next = new ListNode(2);
+        root2.next.next = new ListNode(12);
+        root2.next.next.next = new ListNode(13);
+
+        ListNode newRoot=chapter2.mergeTwoLists(root, root2);
+        while (newRoot!=null){
+            System.out.println(newRoot.val);
+            newRoot=newRoot.next;
+        }
     }
 
     /**
@@ -498,5 +513,49 @@ public class chapter2 {
              }
              return HEAD;
          }
+    }
+
+    /**
+     * 将两个排序链表合并为一个新的排序链表
+     *
+     * @param l1 链表1，例如 1->3->8->11->15->null
+     * @param l2 链表2，例如 2->null
+     * @return 新排序链表，1->2->3->8->11->15->null
+     */
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if (l1 == null) {
+            return l2;
+        } else if (l2 == null) {
+            return l1;
+        } else {
+            ListNode ptr1 = l1;
+            ListNode ptr2 = l2;
+            ListNode HEAD = new ListNode(l1.val);
+            HEAD.next = l1.next;
+            int ptr1count=0;
+            while (ptr1 != null && ptr2 != null && ptr1.val >= ptr2.val&&ptr1count==0) {
+                ListNode tmpHead=new ListNode(ptr2.val);
+                tmpHead.next=HEAD;
+                HEAD=tmpHead;
+                ptr1=HEAD;
+                ptr2 = ptr2.next;
+                ptr1count++;
+            }
+            while (ptr1 != null && ptr2 != null) {
+                if (ptr1.val <= ptr2.val && (ptr1.next == null || ptr1.next.val >= ptr2.val)) {
+                    ListNode tmp = new ListNode(ptr2.val);
+                    tmp.next = ptr1.next;
+                    ptr1.next = tmp;
+                    ptr2 = ptr2.next;
+                }
+                if(ptr1count==0){
+                    HEAD=new ListNode(ptr1.val);
+                    HEAD.next=ptr1.next;
+                }
+                ptr1 = ptr1.next;
+                ptr1count++;
+            }
+            return HEAD;
+        }
     }
 }
