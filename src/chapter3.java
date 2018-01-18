@@ -34,7 +34,7 @@ public class chapter3
 //         * 分割一个整数数组，使得奇数在前偶数在后。
 //         */
 //        int[] array={2147483644,2147483645,2147483646,2147483647};
-//        chapter2.partitionArray(array);
+//        partitionArray(array);
 
 //        /**
 //         * 测试子树
@@ -42,11 +42,11 @@ public class chapter3
 //        TreeNode treeNode = new TreeNode(1);
 //        treeNode.left = new TreeNode(2);
 //        treeNode.right = new TreeNode(3);
-//        chapter2.midOrder(treeNode);
-//        System.out.println(chapter2.isSubtree(treeNode, null));
+//        midOrder(treeNode);
+//        System.out.println(isSubtree(treeNode, null));
 //        ListNode root=new ListNode(1);
 //        root.next=new ListNode(2);
-//        chapter2.removeNthFromEnd(root,2);
+//        removeNthFromEnd(root,2);
 
 //        /**
 //         * 测试合并链表
@@ -59,7 +59,7 @@ public class chapter3
 //        root2.next.next = new ListNode(12);
 //        root2.next.next.next = new ListNode(13);
 //
-//        ListNode newRoot=chapter2.mergeTwoLists(root, root2);
+//        ListNode newRoot=mergeTwoLists(root, root2);
 //        while (newRoot!=null){
 //            System.out.println(newRoot.val);
 //            newRoot=newRoot.next;
@@ -99,7 +99,7 @@ public class chapter3
      * 请在在O(1)时间复杂度删除该链表节点。
      * @param node Linked list is 1->2->3->4, and given node 3, delete the node in place 1->2->4
      */
-    public void deleteNode(chapter2.ListNode node) {
+    public void deleteNode(ListNode node) {
         node.val=node.next.val;
         node.next=node.next.next;
     }
@@ -113,7 +113,7 @@ public class chapter3
      * @param T2 小树
      * @return 是/否
      */
-    public boolean isSubtree(chapter2.TreeNode T1, chapter2.TreeNode T2) {
+    public boolean isSubtree(TreeNode T1, TreeNode T2) {
         String preOrderT1String = "";
         String midOrderT1String = "";
         String preOrderT2String = "";
@@ -160,7 +160,7 @@ public class chapter3
      * 前序遍历，返回值在tmpOrder里
      * @param treeNode 根节点
      */
-    public void preOrder(chapter2.TreeNode treeNode) {
+    public void preOrder(TreeNode treeNode) {
         if (treeNode != null) {
             tmpOrder.add(treeNode.val);
             if (treeNode.left != null) {
@@ -180,7 +180,7 @@ public class chapter3
      * 中序遍历，返回值在tmpOrder里
      * @param treeNode 根节点
      */
-    public void midOrder(chapter2.TreeNode treeNode) {
+    public void midOrder(TreeNode treeNode) {
         if (treeNode != null) {
             if (treeNode.left != null) {
                 midOrder(treeNode.left);
@@ -202,11 +202,11 @@ public class chapter3
      * @param n 倒数第N个
      * @return 头节点
      */
-     public chapter2.ListNode removeNthFromEnd(chapter2.ListNode head, int n) {
+     public ListNode removeNthFromEnd(ListNode head, int n) {
         // write your code here
-         chapter2.ListNode tmpN=new chapter2.ListNode(head.val);
+         ListNode tmpN=new ListNode(head.val);
          tmpN.next=head.next;
-         chapter2.ListNode HEAD=new chapter2.ListNode(head.val);
+         ListNode HEAD=new ListNode(head.val);
          HEAD.next=head.next;
 
          int count=0;
@@ -240,19 +240,19 @@ public class chapter3
      * @param l2 链表2，例如 2->null
      * @return 新排序链表，1->2->3->8->11->15->null
      */
-    public chapter2.ListNode mergeTwoLists(chapter2.ListNode l1, chapter2.ListNode l2) {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         if (l1 == null) {
             return l2;
         } else if (l2 == null) {
             return l1;
         } else {
-            chapter2.ListNode ptr1 = l1;
-            chapter2.ListNode ptr2 = l2;
-            chapter2.ListNode HEAD = new chapter2.ListNode(l1.val);
+            ListNode ptr1 = l1;
+            ListNode ptr2 = l2;
+            ListNode HEAD = new ListNode(l1.val);
             HEAD.next = l1.next;
             int ptr1count=0;
             while (ptr1 != null && ptr2 != null && ptr1.val >= ptr2.val&&ptr1count==0) {
-                chapter2.ListNode tmpHead=new chapter2.ListNode(ptr2.val);
+                ListNode tmpHead=new ListNode(ptr2.val);
                 tmpHead.next=HEAD;
                 HEAD=tmpHead;
                 ptr1=HEAD;
@@ -261,13 +261,13 @@ public class chapter3
             }
             while (ptr1 != null && ptr2 != null) {
                 if (ptr1.val <= ptr2.val && (ptr1.next == null || ptr1.next.val >= ptr2.val)) {
-                    chapter2.ListNode tmp = new chapter2.ListNode(ptr2.val);
+                    ListNode tmp = new ListNode(ptr2.val);
                     tmp.next = ptr1.next;
                     ptr1.next = tmp;
                     ptr2 = ptr2.next;
                 }
                 if(ptr1count==0){
-                    HEAD=new chapter2.ListNode(ptr1.val);
+                    HEAD=new ListNode(ptr1.val);
                     HEAD.next=ptr1.next;
                 }
                 ptr1 = ptr1.next;
