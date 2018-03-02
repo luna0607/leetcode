@@ -64,11 +64,7 @@ public class chapter3
 //            System.out.println(newRoot.val);
 //            newRoot=newRoot.next;
 //        }
-
-        BigInteger a=new BigInteger("2147483647");
-        BigInteger b=new BigInteger("2147483647");
-
-        System.out.println(chapter3.fastPower(3,2147483647,2147483647));
+         System.out.println(chapter3.fastPower(109,10000007,1000001));
     }
         /**
      * 分割一个整数数组，使得奇数在前偶数在后。
@@ -310,23 +306,30 @@ public class chapter3
      * @return 余数
      */
      public int fastPower(int a, int b, int n) {
-        String stringN=Integer.toBinaryString(n);
-        int length=stringN.length();
-        BigInteger result=new BigInteger(Integer.toString(a));
-        BigInteger bigB=new BigInteger(Integer.toString(b));
-        ArrayList<BigInteger> list=new ArrayList<>();
-        list.add(result);
-        for(int i=0;i<length;i++){
-                result=result.multiply(result);
-                list.add(result);
-        }
-        result=new BigInteger("1");
-        for(int i=0;i<length;i++){
-            if(stringN.charAt(length-1-i)=='1'){
-                result=result.multiply(list.get(i));
-            }
-        }
-        BigInteger tmp=result.divideAndRemainder(bigB)[1];
-        return Integer.parseInt(tmp.toString());
+         BigInteger tmp=new BigInteger(Integer.toString(a%b));
+         BigInteger single=tmp;
+         BigInteger B=new BigInteger(Integer.toString(b));
+         if(n%2==1){
+             tmp=new BigInteger("1");
+         }
+         if(n==0||a==1){
+             return a%b;
+         }
+         while (n!=0){
+             if(n%2==0){
+                 tmp=tmp.multiply(tmp);
+                 if(tmp.compareTo(B)==1){
+                     tmp=tmp.divideAndRemainder(B)[1];
+                 }
+                 n=n/2;
+             }else {
+                 tmp=tmp.multiply(single);
+                 n--;
+             }
+         }
+            if(tmp.compareTo(B)==1){
+                     tmp=tmp.divideAndRemainder(B)[1];
+                 }
+         return Integer.parseInt(tmp.toString());
     }
 }
