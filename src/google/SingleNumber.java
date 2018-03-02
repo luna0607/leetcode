@@ -6,6 +6,7 @@ package google;
 public class SingleNumber {
         /**
          * link:http://www.lintcode.com/en/problem/single-number-iv/
+         * 思路：判断第n位和第n+1位是否相同，n每次+2。第一个不同的nums[n]就是答案
      * @param nums: The number array
      * @return: Return the single number
      */
