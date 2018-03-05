@@ -14,9 +14,21 @@ public class PeakNumber {
         if(A.length<3){
             return -1;
         }
-        for(int i=1;i<A.length-1;i++){
-            if((A[i]>A[i-1])&&(A[i]>A[i+1])){
-                return i;
+        if(A.length==3){
+            return 1;
+        }
+        int half=A.length/2;
+        if(A[half]>A[half+1]){
+            for(int i=half;i>0;i--){
+                if(A[i]>A[i-1]){
+                    return i;
+                }
+            }
+        }else {
+            for(int i=half;i<A.length-1;i++){
+                 if(A[i]>A[i+1]){
+                    return i;
+                }
             }
         }
         return -1;
