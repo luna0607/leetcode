@@ -10,28 +10,17 @@ public class PeakNumber {
      * @return: return any of peek positions.
      */
     public int findPeak(int[] A) {
-        // write your code here
-        if(A.length<3){
-            return -1;
-        }
-        if(A.length==3){
-            return 1;
-        }
-        int half=A.length/2;
-        if(A[half]>A[half+1]){
-            for(int i=half;i>0;i--){
-                if(A[i]>A[i-1]){
-                    return i;
-                }
-            }
-        }else {
-            for(int i=half;i<A.length-1;i++){
-                 if(A[i]>A[i+1]){
-                    return i;
-                }
+        int left=0;
+        int right=A.length-1;
+        while (left<right){
+            int mid=left+(right-left)/2;
+            if(A[mid]>A[mid+1]){
+                right=mid;
+            }else {
+                left=mid+1;
             }
         }
-        return -1;
+        return right;
     }
 
     public static void main(String[] args) {
